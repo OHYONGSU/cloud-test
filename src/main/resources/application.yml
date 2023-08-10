@@ -1,1 +1,17 @@
 
+
+spring:
+  application:
+    name: szs-platform-api
+  cloud:
+    config:
+      uri: http://localhost:8888
+      profile: dev,cache-redis
+
+  config:
+    import: 'configserver:'
+
+redis-url: 'local-redis'
+database-url : 'local-db'
+server:
+  port: 9090
