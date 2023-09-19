@@ -1,17 +1,11 @@
-
-
 spring:
   application:
-    name: szs-platform-api
+    name: cloud-test
   cloud:
     config:
       uri: http://localhost:8888
-      profile: dev,cache-redis
-
+#      profile: dev
   config:
-    import: 'configserver:'
-
-redis-url: 'local-redis'
-database-url : 'local-db'
-server:
-  port: 9090
+    import: 'optional:configserver:'
+  profiles:
+    active: dev
