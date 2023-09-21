@@ -1,32 +1,44 @@
 package com.example.cloudtest;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 public class CloudTestApplication {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-  @Value("${redis-url}")
-  private String redisUrl;
-
-  @Value("${database-url}")
-  private String databaseUrl;
   public static void main(String[] args) {
     SpringApplication.run(CloudTestApplication.class, args);
   }
 
+  @Component
+  @Slf4j
+  @RequiredArgsConstructor
+  static class TestRunner implements ApplicationRunner {
 
-  @PostConstruct
-  void setUp () {
+    private final Environment environment;
 
-    logger.info("redis url : " + redisUrl);
-    logger.info("database url : " + databaseUrl);
+    @Value("${spring.config.import}")
+    private List<String> imports;
 
+    @Value("${szs.sdk.venom.api.host}")
+    private String venom;
+//
+    @Value("${szs.sdk.venom.api.key}")
+    private String key;
+
+    @Override
+    public void run(ApplicationArguments args) {
+      System.out.println(venom);
+      System.out.println(key);
+      imports.forEach(System.out::println);
+    }
   }
 }
