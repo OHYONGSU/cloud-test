@@ -4,8 +4,10 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-#      profile: dev
+      label: master
+      enabled: true
+  #      profile: ${spring.profiles.active}, host, db # default {spring.profiles.active}
   config:
     import: 'optional:configserver:'
   profiles:
-    active: dev
+    active: dev, venom

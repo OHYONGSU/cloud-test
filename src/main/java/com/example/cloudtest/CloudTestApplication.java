@@ -1,10 +1,8 @@
 package com.example.cloudtest;
 
-import jakarta.annotation.PostConstruct;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -15,8 +13,6 @@ import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 public class CloudTestApplication {
-
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   public static void main(String[] args) {
     SpringApplication.run(CloudTestApplication.class, args);
@@ -29,19 +25,20 @@ public class CloudTestApplication {
 
     private final Environment environment;
 
-    @Value("${host.api.venom}")
-    private String venom;
+    @Value("${spring.config.import}")
+    private List<String> imports;
 
+    @Value("${szs.sdk.venom.api.host}")
+    private String venom;
+//
     @Value("${szs.sdk.venom.api.key}")
     private String key;
 
     @Override
     public void run(ApplicationArguments args) {
-      log.info("print config start");
-      log.info("{}", environment);
-      log.info("{}", venom);
-      log.info("{}", key);
-      log.info("print config end");
+      System.out.println(venom);
+      System.out.println(key);
+      imports.forEach(System.out::println);
     }
   }
 }
